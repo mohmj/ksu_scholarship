@@ -3,6 +3,7 @@ import 'package:ksu_scholarship/screens/auth_screen.dart';
 import 'package:ksu_scholarship/screens/home_screen.dart';
 import 'package:ksu_scholarship/screens/mother_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:ksu_scholarship/screens/orders/housing_order_screen.dart';
 
 Future<void> main()async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -29,11 +30,12 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: MotherScreen(),
-      initialRoute: AuthScreen.id,
+      initialRoute: MotherScreen.id,
       routes: {
         MotherScreen.id:(context)=>MotherScreen(),
         HomeScreen.id:(context)=>HomeScreen(),
         AuthScreen.id:(context)=>AuthScreen(),
+        HousingOrderScreen.id:(context)=>HousingOrderScreen(),
       },
     );
   }

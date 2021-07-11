@@ -8,6 +8,7 @@ import 'package:dropdown_formfield/dropdown_formfield.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ksu_scholarship/problem_domain/models/Account.dart';
 import 'package:ksu_scholarship/problem_domain/Algorithm.dart';
+import 'package:ksu_scholarship/screens/home_screen.dart';
 import 'package:ksu_scholarship/screens/mother_screen.dart';
 
 class AuthScreen extends StatefulWidget {
@@ -27,8 +28,10 @@ class _AuthScreenState extends State<AuthScreen> {
   TextEditingController nationalityController=TextEditingController();
   TextEditingController countryController=TextEditingController();
   Timestamp birthDay;
+  TextEditingController birthController=TextEditingController();
   TextEditingController iqamaNumberController=TextEditingController();
   Timestamp iqamaExpDate;
+  TextEditingController iqamaExpDateController=TextEditingController();
   TextEditingController phoneNumberController=TextEditingController();
   TextEditingController universityIdController=TextEditingController();
   TextEditingController GPAController=TextEditingController();
@@ -50,6 +53,11 @@ class _AuthScreenState extends State<AuthScreen> {
 
   // End of controllers.
   TextEditingController _IqamaExpDateController=TextEditingController();
+
+  // Login controllers
+  TextEditingController loginEmailController=TextEditingController();
+  TextEditingController loginPasswordController=TextEditingController();
+
 
 
   String blueButtonText="تسجيل الدخول";
@@ -95,6 +103,7 @@ class _AuthScreenState extends State<AuthScreen> {
   }
 
   Widget build(BuildContext context) {
+    loginEmailController.text="@student.ksu.edu.sa";
 
     return Scaffold(
       backgroundColor: Colors.grey[200],
@@ -123,13 +132,13 @@ class _AuthScreenState extends State<AuthScreen> {
                             child: Directionality(
                               textDirection: TextDirection.rtl,
                               child: TextField(
-                                keyboardType: TextInputType.numberWithOptions(
-                                    signed: false, decimal: false),
+                                keyboardType: TextInputType.emailAddress,
+                                controller: loginEmailController,
                                 style: TextStyle(
                                   fontSize: 20,
                                 ),
                                 decoration: InputDecoration(
-                                  labelText: "الرقم الجامعي",
+                                  labelText: "البريد الإلكتروني",
                                   enabledBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(5),
                                     borderSide: BorderSide(
@@ -154,6 +163,7 @@ class _AuthScreenState extends State<AuthScreen> {
                               textDirection: TextDirection.rtl,
                               child: TextField(
                                 keyboardType: TextInputType.visiblePassword,
+                                controller: loginPasswordController,
                                 obscureText: true,
                                 style: TextStyle(
                                   fontSize: 20,
@@ -426,7 +436,7 @@ class _AuthScreenState extends State<AuthScreen> {
                                 textDirection: TextDirection.rtl,
                                 child: TextField(
                                   keyboardType: TextInputType.datetime,
-                                  controller: _IqamaExpDateController,
+                                  controller: birthController,
                                   onTap:(){
                                     showDatePicker(
                                       context: context,
@@ -435,6 +445,9 @@ class _AuthScreenState extends State<AuthScreen> {
                                       lastDate: DateTime(DateTime.now().year+2),
                                     ).then((pickedDate) {
                                       birthDay=Timestamp.fromDate(pickedDate);
+                                      setState(() {
+                                        birthController.text="${birthDay.toDate().year}/${birthDay.toDate().month}/${birthDay.toDate().day}";
+                                      });
                                     });
                                   },
                                   style: TextStyle(
@@ -505,6 +518,10 @@ class _AuthScreenState extends State<AuthScreen> {
                                       lastDate: DateTime(DateTime.now().year+2),
                                     ).then((pickedDate) {
                                       iqamaExpDate=Timestamp.fromDate(pickedDate);
+                                      print(iqamaExpDate.toDate().month);
+                                      setState(() {
+                                        _IqamaExpDateController.text="${iqamaExpDate.toDate().year}/${iqamaExpDate.toDate().month}/${iqamaExpDate.toDate().day}";
+                                      });
                                     });
                                   },
                                   style: TextStyle(
@@ -1250,7 +1267,7 @@ class _AuthScreenState extends State<AuthScreen> {
                               ))),
                     ),
                     onTap: ()async{
-                      if(correctAuthWidget==AuthWidgets.registration){
+                      if(regVisibility){
                         UserCredential _userCredential=await FirebaseAuth.instance.createUserWithEmailAndPassword(email: universityIdController.text.trim()+"@student.ksu.edu.sa", password: passwordController.text);
                         User _user=_userCredential.user;
                         Account _account=Account(_user.uid, false, false,universityIdController.text.trim(),nameArController.text.trim(), nameEnController.text.trim(),
@@ -1262,6 +1279,16 @@ class _AuthScreenState extends State<AuthScreen> {
                           uploadUser(_account);
                           Navigator.pushReplacementNamed(context, MotherScreen.id);
                         }
+                      }else if(loginVisibility){
+                        UserCredential _userCredential=await FirebaseAuth.instance.signInWithEmailAndPassword(email: loginEmailController.text.trim(), password: loginPasswordController.text);
+                        if(_userCredential.user != null){
+                          Navigator.popAndPushNamed(context, MotherScreen.id);
+                        }
+                      }else{
+                        await FirebaseAuth.instance.sendPasswordResetEmail(email: loginEmailController.text.trim());
+                        setState(() {
+                          changeWidget(AuthWidgets.resetPassword);
+                        });
                       }
                     },
                   ),
