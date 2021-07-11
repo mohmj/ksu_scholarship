@@ -1,0 +1,76 @@
+{
+  "project_info": {
+    "project_number": "844706976608",
+    "project_id": "ksu-scholarships",
+    "storage_bucket": "ksu-scholarships.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:844706976608:android:241554c1bd7fed39ad8405",
+        "android_client_info": {
+          "package_name": "com.softwareclinics.ksu_scholarship"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "844706976608-s7pk9giegk1buk66euueqf8pt68ghu2t.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.softwareclinics.ksu_scholarship",
+            "certificate_hash": "85aed893139ab299fcb7964c3b19338886433968"
+          }
+        },
+        {
+          "client_id": "844706976608-nkp6sej9icjal51bibj5g0ih3h7dmche.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAoqBoK9rS0pXDNNLq1L4NjEByA0SMAfhg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "844706976608-nkp6sej9icjal51bibj5g0ih3h7dmche.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:844706976608:android:a4a41ac71042f81ead8405",
+        "android_client_info": {
+          "package_name": "com.softwareclinics.ksu_scolarship"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "844706976608-nkp6sej9icjal51bibj5g0ih3h7dmche.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAoqBoK9rS0pXDNNLq1L4NjEByA0SMAfhg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "844706976608-nkp6sej9icjal51bibj5g0ih3h7dmche.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
