@@ -1,8 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:ksu_scholarship/constant/order_types.dart';
 
-class HousingOrder{
-  String orderType=OrderType().housing;
+class Order{
+  String orderType;
   String documentRef;
   String uid;
   String id;
@@ -14,10 +13,9 @@ class HousingOrder{
   String studentNote;
   String note;
   String pdfLink;
-  //
-  String status;
 
-  HousingOrder(String documentRef, String uid, String id, String name, String nationality, Timestamp orderDate,String orderStatus,Timestamp answerDate,String studentNote, String note,String pdfLink, String status){
+
+  Order(String documentRef, String uid, String id, String name, String nationality, Timestamp orderDate,String orderStatus,Timestamp answerDate,String studentNote, String note,String pdfLink){
     this.documentRef=documentRef;
     this.uid=uid;
     this.id=id;
@@ -29,10 +27,9 @@ class HousingOrder{
     this.studentNote=studentNote;
     this.note=note;
     this.pdfLink=pdfLink;
-    this.status=status;
   }
 
-  HousingOrder.fromMap(Map<String, dynamic> data){
+  Order.fromMap(Map<String, dynamic> data){
     orderType=data['orderType'];
     documentRef=data['documentRef'];
     uid=data['uid'];
@@ -45,7 +42,6 @@ class HousingOrder{
     studentNote=data['studentNote'];
     note=data['note'];
     pdfLink=data['pdfLink'];
-    status=data['status'];
   }
 
   Map<String, dynamic> toMap(){
@@ -62,8 +58,6 @@ class HousingOrder{
       "studentNote":studentNote,
       "note":note,
       "pdfLink":pdfLink,
-      "status":status,
     };
   }
-
 }
