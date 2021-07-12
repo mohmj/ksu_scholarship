@@ -148,6 +148,7 @@ class _SettingScreenState extends State<SettingScreen> {
               child: Padding(
                 padding: EdgeInsets.only(bottom: 30, left: 20, right: 20,),
                 child: ListView(
+                  padding: EdgeInsets.zero,
                   children: [
                     DepContainer(
                       "البيانات الشخصية",
@@ -155,12 +156,23 @@ class _SettingScreenState extends State<SettingScreen> {
                         SettingDataCard(
                           "الاسم",
                           "محمد علي خالد",
-                          onPress: () {
-                            changePersonalInformation("الاسم",);
-                          },
+                        ),
+                        SettingDataCard(
+                          "الاسم باللغة الانجليزية",
+                          "محمد علي خالد",
                         ),
                         SettingDataCard("الجنسية", "صومالي",),
-                        SettingDataCard("العمر", "28",),
+                        SettingDataCard("البلد", "صومالي",),
+                        SettingDataCard("تاريخ الميلاد", "28",),
+                      ],
+                    ),
+                    DepContainer(
+                      "بيانات الهوية",
+                      children: [
+                        SettingDataCard("رقم الهوية", "16",),
+                        SettingDataCard("تاريخ انتهاء الهوية", "4",),
+                        // SettingDataCard("رقم الجواز", "16",),
+                        // SettingDataCard("تاريخ انتهاء الجواز", "2",),
                       ],
                     ),
                     DepContainer(
@@ -177,12 +189,29 @@ class _SettingScreenState extends State<SettingScreen> {
                     DepContainer(
                       "بيانات السكن",
                       children: [
+                        SettingDataCard("نوع السكن", "سكن جامعي",),
                         SettingDataCard("المبنى", "16",),
                         SettingDataCard("الدور", "4",),
                         SettingDataCard("الجناح", "2",),
                         SettingDataCard("غرفة", "7",),
                       ],
                     ),
+                    DepContainer(
+                      "بيانات الأسرة",
+                      children: [
+                        SettingDataCard("هل الأسرة بالسعودية", "نعم",),
+                        SettingDataCard("عدد أفراد الأسرة", "4",),
+                      ],
+                    ),
+                    DepContainer(
+                      "بيانات التواصل",
+                      children: [
+                        SettingDataCard("رقم الجوال", "نعم",),
+                        SettingDataCard("الموقع بالبلد الأم", "4",),
+                        SettingDataCard("رقم التواصل بالبلد الأهم", "4",),
+                      ],
+                    ),
+
                   ],
                 ),
               ),
@@ -196,7 +225,7 @@ class DepContainer extends StatelessWidget {
   DepContainer(this.label, {this.children});
 
   String label;
-  List<SettingDataCard> children;
+  List <SettingDataCard>children;
 
   @override
   Widget build(BuildContext context) {
@@ -239,42 +268,45 @@ class DepContainer extends StatelessWidget {
 }
 
 class SettingDataCard extends StatelessWidget {
-  SettingDataCard(this.label, this.data, {this.onPress = null});
+  SettingDataCard(this.label, this.data, {this.onPress = null, this.visibility=true});
 
   String label;
   String data;
   Function onPress;
-
+  bool visibility;
   @override
   Widget build(BuildContext context) {
-    return Directionality(
-      textDirection: TextDirection.rtl,
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10,),
-        child: Column(
-          children: [
-            Container(
-              width: double.infinity,
-              child: Text(label,
-                style: TextStyle(color: color.darkGrey, fontSize: 14,),),),
-            Row(
-              children: [
-                Expanded(
-                  child: Text(
-                    data,
-                    style: TextStyle(color: color.primaryColor, fontSize: 18,),
+    return Visibility(
+      visible: visibility,
+      child: Directionality(
+        textDirection: TextDirection.rtl,
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10,),
+          child: Column(
+            children: [
+              Container(
+                width: double.infinity,
+                child: Text(label,
+                  style: TextStyle(color: color.darkGrey, fontSize: 14,),),),
+              Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      data,
+                      style: TextStyle(color: color.primaryColor, fontSize: 18,),
+                    ),
                   ),
-                ),
-                InkWell(
-                  child: Icon(
-                    Icons.edit,
+                  InkWell(
+                    child: Icon(
+                      Icons.edit,
+                    ),
+                    onTap: onPress,
                   ),
-                  onTap: onPress,
-                ),
-              ],
-            ),
-            Divider(color: color.darkGrey, thickness: 0.5,),
-          ],
+                ],
+              ),
+              Divider(color: color.darkGrey, thickness: 0.5,),
+            ],
+          ),
         ),
       ),
     );
