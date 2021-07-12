@@ -24,7 +24,7 @@ class Account {
   int level; // Change to int later .
   String academicStatus; // Change to enum later .
   String housingType;
-
+  int houseBuilding;int houseFloor; int houseSuite; int houseRoom;
   // Map<String, int> housingInfo; //
   bool familyInSaudiArabia;
   int numberOfFamily;
@@ -32,7 +32,7 @@ class Account {
   String phoneInCountry;
 
   Account(
-      String uid,bool isSuperAdmin,bool isAdmin,String universityId,String nameAr,String nameEn,String email,bool gender,String nationality,String country,Timestamp dateOfBirth,String iqamaNumber,Timestamp iqamaExpDate,String phoneNumber,double GPA,String degree,String college,String department,int level,String academicStatus,String housingType,bool familyInSaudiArabia,int numberOfFamily,String addressInCountry,String phoneInCountry){
+      String uid,bool isSuperAdmin,bool isAdmin,String universityId,String nameAr,String nameEn,String email,bool gender,String nationality,String country,Timestamp dateOfBirth,String iqamaNumber,Timestamp iqamaExpDate,String phoneNumber,double GPA,String degree,String college,String department,int level,String academicStatus,String housingType,int houseBuilding, int houseFloor, int houseSuite, int houseRoom,bool familyInSaudiArabia,int numberOfFamily,String addressInCountry,String phoneInCountry){
     this.uid=uid;
     this.isSuperAdmin = isSuperAdmin;
     this.isAdmin = isAdmin;
@@ -54,6 +54,10 @@ class Account {
     this.level=level;
     this.academicStatus=academicStatus;
     this.housingType=housingType;
+    this.houseBuilding=houseBuilding;
+    this.houseFloor=houseFloor;
+    this.houseSuite=houseSuite;
+    this.houseRoom=houseRoom;
     // this.housingInfo,
     this.familyInSaudiArabia=familyInSaudiArabia;
     this.numberOfFamily = numberOfFamily;
@@ -114,6 +118,10 @@ class Account {
     level = data['level'];
     academicStatus = data['academicStatus'];
     housingType = data['housingType'];
+    houseBuilding=data['houseBuilding'];
+    houseFloor=data['houseFloor'];
+    houseSuite=data['houseSuite'];
+    houseRoom=data['houseRoom'];
     // housingInfo=data['housingInfo'];
     familyInSaudiArabia = data['familyInSaudiArabia'];
     numberOfFamily = data['numberOfFamily'];
@@ -144,6 +152,10 @@ class Account {
       "level": level,
       "academicStatus": academicStatus,
       "housingType": housingType,
+      "houseBuilding":houseBuilding,
+      "houseFloor":houseFloor,
+      "houseSuite":houseSuite,
+      "houseRoom":houseRoom,
       // "housingInfo":housingInfo,
       "familyInSaudiArabia": familyInSaudiArabia,
       "numberOfFamily": numberOfFamily,

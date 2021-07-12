@@ -11,6 +11,13 @@ void uploadUser(Account account)async{
   await FirebaseFirestore.instance.collection("users").doc(account.uid).set(account.toMap());
 }
 
+/// User data
+// Get user information
+Future retrieveUserData()async{
+  QuerySnapshot _orders=await FirebaseFirestore.instance.collection("users").where("uid",isEqualTo: FirebaseAuth.instance.currentUser.uid).get();
+  return _orders.docs;
+}
+
 
 /// orders
 // get orders

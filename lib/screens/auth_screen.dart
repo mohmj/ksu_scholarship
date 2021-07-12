@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ksu_scholarship/constant/colors.dart' as color;
+import 'package:ksu_scholarship/constant/housing_types.dart' ;
 import 'package:dropdown_formfield/dropdown_formfield.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ksu_scholarship/problem_domain/models/Account.dart';
@@ -42,8 +43,9 @@ class _AuthScreenState extends State<AuthScreen> {
   TextEditingController levelController=TextEditingController();
   List<String> academicStatusList=['منتظم','متخرج','معتذر','مؤجل','مفصول أكاديميا'];
   String academicStatus;
-  List<String> housingTypeList=['سكن الجامعة','سكن خيري','سكن بالإيجار'];
+  List<String> housingTypeList=[HousingTypes().universityHousing,HousingTypes().charitable,HousingTypes().rent];
   String housingType;
+  int houseBuilding=0; int houseFloor=0; int houseSuite=0; int houseRoom=0;
   bool familyInSaudiArabia=false;
   int numberOfFamilyMember=0;
   TextEditingController addressInCountryController=TextEditingController();
@@ -886,7 +888,7 @@ class _AuthScreenState extends State<AuthScreen> {
                               ),
                             ),
                             Visibility(
-                                visible: housingType=="سكن الجامعة"?true:false,
+                                visible: housingType==HousingTypes().universityHousing?true:false,
                                 child: Column(
                                   children: [
                                     Padding(
@@ -895,7 +897,9 @@ class _AuthScreenState extends State<AuthScreen> {
                                         textDirection: TextDirection.rtl,
                                         child: TextField(
                                           keyboardType: TextInputType.numberWithOptions(decimal: false),
-                                          controller: departmentController,
+                                          onChanged: (value){
+                                            houseBuilding=int.parse(value);
+                                          },
                                           style: TextStyle(
                                             fontSize: 20,
                                           ),
@@ -925,7 +929,9 @@ class _AuthScreenState extends State<AuthScreen> {
                                         textDirection: TextDirection.rtl,
                                         child: TextField(
                                           keyboardType: TextInputType.numberWithOptions(decimal: false),
-                                          controller: departmentController,
+                                          onChanged: (value){
+                                            houseFloor=int.parse(value);
+                                          },
                                           style: TextStyle(
                                             fontSize: 20,
                                           ),
@@ -955,7 +961,9 @@ class _AuthScreenState extends State<AuthScreen> {
                                         textDirection: TextDirection.rtl,
                                         child: TextField(
                                           keyboardType: TextInputType.numberWithOptions(decimal: false),
-                                          controller: departmentController,
+                                          onChanged: (value){
+                                            houseSuite=int.parse(value);
+                                          },
                                           style: TextStyle(
                                             fontSize: 20,
                                           ),
@@ -985,7 +993,9 @@ class _AuthScreenState extends State<AuthScreen> {
                                         textDirection: TextDirection.rtl,
                                         child: TextField(
                                           keyboardType: TextInputType.numberWithOptions(decimal: false),
-                                          controller: departmentController,
+                                          onChanged: (value){
+                                            houseRoom=int.parse(value);
+                                          },
                                           style: TextStyle(
                                             fontSize: 20,
                                           ),
@@ -1273,7 +1283,7 @@ class _AuthScreenState extends State<AuthScreen> {
                         Account _account=Account(_user.uid, false, false,universityIdController.text.trim(),nameArController.text.trim(), nameEnController.text.trim(),
                         _user.email,gender,nationalityController.text.trim(), countryController.text.trim(),birthDay,iqamaNumberController.text.trim(),iqamaExpDate,phoneNumberController.text.trim(),
                           double.parse(GPAController.text.trim()),degree, collegeController.text.trim(), departmentController.text.trim(), int.parse(levelController.text.trim()),
-                          academicStatus,housingType,familyInSaudiArabia,numberOfFamilyMember,addressInCountryController.text.trim(),contactNumberInCountryController.text.trim()
+                          academicStatus,housingType,houseBuilding,houseFloor,houseSuite,houseRoom,familyInSaudiArabia,numberOfFamilyMember,addressInCountryController.text.trim(),contactNumberInCountryController.text.trim()
                         );
                         if(_user != null){
                           uploadUser(_account);
@@ -1323,9 +1333,7 @@ class _AuthScreenState extends State<AuthScreen> {
                     },
                   ),
                 ],
-              )
-
-
+              ),
             ],
           ),
         ),

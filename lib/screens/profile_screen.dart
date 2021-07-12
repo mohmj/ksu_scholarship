@@ -5,8 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ksu_scholarship/constant/colors.dart' as color;
 import 'package:barcode_widget/barcode_widget.dart';
+import 'package:ksu_scholarship/constant/housing_types.dart';
+import 'package:ksu_scholarship/problem_domain/models/Account.dart';
 import 'package:ksu_scholarship/problem_domain/models/housing_order.dart';
+import 'package:ksu_scholarship/problem_domain/models/order.dart';
 import 'package:ksu_scholarship/problem_domain/Algorithm.dart';
+import 'package:ksu_scholarship/constant/order_status.dart';
 
 class ProfileScreen extends StatefulWidget {
   static const String id = "profile_screen";
@@ -16,78 +20,7 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  List ordersList = [
-    {
-      'title': "طلب اسكان",
-      'date': "1/1/2022",
-      'status': "approved",
-    },
-    {
-      'title': "طلب تأشيرة خروج وعودة",
-      'date': "2/1/2022",
-      'status': "denied",
-    },
-    {
-      'title': "طلب تغذية",
-      'date': "3/1/2022",
-      'status': "proceed",
-    },
-    {
-      'title': "طلب إعانة",
-      'date': "4/1/2022",
-      'status': "error",
-    },
-    {
-      'title': "طلب إعانة",
-      'date': "4/1/2022",
-      'status': "error",
-    },
-    {
-      'title': "طلب إعانة",
-      'date': "4/1/2022",
-      'status': "error",
-    },
-    {
-      'title': "طلب إعانة",
-      'date': "4/1/2022",
-      'status': "error",
-    },
-    {
-      'title': "طلب إعانة",
-      'date': "4/1/2022",
-      'status': "error",
-    },
-    {
-      'title': "طلب إعانة",
-      'date': "4/1/2022",
-      'status': "error",
-    },
-    {
-      'title': "طلب إعانة",
-      'date': "4/1/2022",
-      'status': "error",
-    },
-    {
-      'title': "طلب إعانة",
-      'date': "4/1/2022",
-      'status': "error",
-    },
-    {
-      'title': "طلب إعانة",
-      'date': "4/1/2022",
-      'status': "error",
-    },
-    {
-      'title': "طلب إعانة",
-      'date': "4/1/2022",
-      'status': "error",
-    },
-    {
-      'title': "طلب إعانة",
-      'date': "4/1/2022",
-      'status': "error",
-    },
-  ];
+
 
   @override
   Widget build(BuildContext context) {
@@ -123,63 +56,91 @@ class _ProfileScreenState extends State<ProfileScreen> {
             padding: EdgeInsets.symmetric(horizontal: 15, vertical: 20),
             child: Container(
                 width: double.infinity,
-                child: Column(
-                  children: [
-                    Container(
-                      width: double.infinity,
-                      child: Directionality(
-                          textDirection: TextDirection.rtl,
-                          child: AutoSizeText(
-                            "محمد بن علي بن خالد",
-                            minFontSize: 32,
-                            maxLines: 2,
-                            style: TextStyle(
-                              color: color.primaryColor,
-                            ),
-                          )),
-                    ),
-                    Container(
-                      width: double.infinity,
-                      child: Directionality(
-                          textDirection: TextDirection.rtl,
-                          child: AutoSizeText(
-                            "كلية علوم الحاسب والمعلومات",
-                            minFontSize: 24,
-                            maxLines: 2,
-                            style: TextStyle(
-                              color: color.darkGrey,
-                            ),
-                          )),
-                    ),
-                    Container(
-                      width: double.infinity,
-                      child: Directionality(
-                          textDirection: TextDirection.rtl,
-                          child: AutoSizeText(
-                            "م 46 د 4 ج 3 غ 5",
-                            minFontSize: 24,
-                            maxLines: 2,
-                            style: TextStyle(
-                              color: color.darkGrey,
-                            ),
-                          )),
-                    ),
-                    Visibility(
-                      visible: false,
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(vertical: 10),
-                        child: Container(
-                          width: double.infinity,
-                          height: 110,
-                          child: BarcodeWidget(
-                            barcode: Barcode.code128(),
-                            data: '4********',
-                          ),
+                height: 100,
+                child: FutureBuilder(
+                  future: retrieveUserData(),
+                  builder: (context,snapshot){
+                    if(snapshot.connectionState==ConnectionState.waiting){
+                      return Container(
+                        child: Center(
+                          child: Text("جاري جلب البيانات"),
                         ),
-                      ),
-                    ),
-                  ],
-                )),
+                      );
+                    }else{
+                      return ListView.builder(
+                          padding: EdgeInsets.zero,
+                          itemCount: snapshot.data.length,
+                          itemBuilder: (_,index){
+                            DocumentSnapshot _userData=snapshot.data[index];
+                            Account _userDataMap=Account.fromMap(_userData.data());
+
+                            return Column(
+                              children: [
+                                Container(
+                                  width: double.infinity,
+                                  child: Directionality(
+                                      textDirection: TextDirection.rtl,
+                                      child: AutoSizeText(
+                                        _userDataMap.nameAr,
+                                        minFontSize: 32,
+                                        maxLines: 2,
+                                        style: TextStyle(
+                                          color: color.primaryColor,
+                                        ),
+                                      )),
+                                ),
+                                Container(
+                                  width: double.infinity,
+                                  child: Directionality(
+                                      textDirection: TextDirection.rtl,
+                                      child: AutoSizeText(
+                                        _userDataMap.college,
+                                        minFontSize: 24,
+                                        maxLines: 2,
+                                        style: TextStyle(
+                                          color: color.darkGrey,
+                                        ),
+                                      )),
+                                ),
+                                Visibility(
+                                  visible: _userDataMap.housingType==HousingTypes().universityHousing?true:false,
+                                  child: Container(
+                                    width: double.infinity,
+                                    child: Directionality(
+                                        textDirection: TextDirection.rtl,
+                                        child: AutoSizeText(
+                                          "م {} د 4 ج 3 غ 5",
+                                          minFontSize: 24,
+                                          maxLines: 2,
+                                          style: TextStyle(
+                                            color: color.darkGrey,
+                                          ),
+                                        )),
+                                  ),
+                                ),
+                                Visibility(
+                                  visible: false,
+                                  child: Padding(
+                                    padding: EdgeInsets.symmetric(vertical: 10),
+                                    child: Container(
+                                      width: double.infinity,
+                                      height: 110,
+                                      child: BarcodeWidget(
+                                        barcode: Barcode.code128(),
+                                        data: '4********',
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            );
+                          }
+
+                      );
+                    }
+                  },
+                )
+            ),
           ),
           Container(
             width: double.infinity,
@@ -223,10 +184,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       );
                     }else{
                       return ListView.builder(
+                          padding: EdgeInsets.zero,
                           itemCount: snapshot.data.length,
                           itemBuilder: (_,index){
                             DocumentSnapshot _orderData=snapshot.data[index];
-                           return LastOrderCard(HousingOrder.fromMap(_orderData.data()));
+                           return LastOrderCard(Order.fromMap(_orderData.data()));
                           }
                       );
                     }
@@ -244,14 +206,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
 class LastOrderCard extends StatelessWidget {
   LastOrderCard(this.housingOrder);
 
-  HousingOrder housingOrder;
+  Order housingOrder;
 
   Icon _stateIcon(String status) {
-    if (status == "approved")
+    if (status == OrderStatus().approved)
       return Icon(Icons.done, color: color.green);
-    else if (status == "denied")
+    else if (status == OrderStatus().denied)
       return Icon(Icons.close, color: color.red);
-    else if (status == "proceed")
+    else if (status == OrderStatus().proceed)
       return Icon(FontAwesomeIcons.circleNotch, color: color.primaryColor);
     return Icon(
       Icons.error_outline,
@@ -262,83 +224,104 @@ class LastOrderCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      padding: EdgeInsets.symmetric(horizontal: 0, vertical: 0),
       child: InkWell(
         onTap: () {
           Navigator.push(
               context,
               MaterialPageRoute(
                   builder: (context) => LastOrderDetails(
-                        housingOrder.orderType,
-                        "housingOrder.orderDate.toDate().year.toString()",
-                        housingOrder.status,
-                        notes: housingOrder.note,
+                        housingOrder
                       )));
         },
-        child: Container(
-            width: double.infinity,
-            child: Column(
-              children: [
-                Row(
-                  children: [
-                    Icon(
-                      Icons.arrow_back_ios_outlined,
-                      color: color.primaryColor,
-                    ),
-                    Expanded(
-                      child: Column(
-                        children: [
-                          Container(
-                              width: double.infinity,
-                              child: Directionality(
-                                  textDirection: TextDirection.rtl,
-                                  child: Text(
-                                    housingOrder.orderType,
-                                    style: TextStyle(
-                                        color: color.primaryColor,
-                                        fontSize: 20),
-                                  ))),
-                          Container(
-                              width: double.infinity,
-                              child: Directionality(
-                                  textDirection: TextDirection.rtl,
-                                  child: Text(
-                                    "a",
-                                    // "${housingOrder.orderDate.toDate().year}",
-                                    style: TextStyle(
-                                        color: color.primaryColor,
-                                        fontSize: 14),
-                                  ))),
-                        ],
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          child: Container(
+              width: double.infinity,
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      Icon(
+                        Icons.arrow_back_ios_outlined,
+                        color: color.primaryColor,
                       ),
-                    ),
-                    SizedBox(
-                      width: 15,
-                    ),
-                    _stateIcon(housingOrder.orderStatus),
-                  ],
-                ),
-                Container(
-                  width: MediaQuery.of(context).size.width * 0.6,
-                  child: Divider(
-                    color: color.darkGrey.withOpacity(0.2),
-                    thickness: 2,
+                      Expanded(
+                        child: Column(
+                          children: [
+                            Container(
+                                width: double.infinity,
+                                child: Directionality(
+                                    textDirection: TextDirection.rtl,
+                                    child: Text(
+                                      housingOrder.orderType,
+                                      style: TextStyle(
+                                          color: color.primaryColor,
+                                          fontSize: 20),
+                                    ))),
+                            Container(
+                                width: double.infinity,
+                                child: Directionality(
+                                    textDirection: TextDirection.rtl,
+                                    child: Text(
+                                      // "a",
+                                      // "${housingOrder.orderDate.toDate().year}",
+                                      "0000/00/00",
+                                      style: TextStyle(
+                                          color: color.primaryColor,
+                                          fontSize: 14),
+                                    ))),
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        width: 15,
+                      ),
+                      _stateIcon(housingOrder.orderStatus),
+                    ],
                   ),
-                ),
-              ],
-            )),
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.6,
+                    child: Divider(
+                      color: color.darkGrey.withOpacity(0.2),
+                      thickness: 2,
+                    ),
+                  ),
+                ],
+              )),
+        ),
       ),
     );
   }
 }
 
 class LastOrderDetails extends StatelessWidget {
-  LastOrderDetails(this.title, this.date, this.status, {this.notes = ""});
+  LastOrderDetails(this._order);
 
-  String title;
-  String date;
-  String status;
-  String notes;
+  Order _order;
+
+  Container data({String title, String text}){
+    return Container(
+      width: double.infinity,
+      child: Directionality(
+        textDirection: TextDirection.rtl,
+        child: RichText(text: TextSpan(
+          children: <TextSpan>[
+            TextSpan(text: title,style: TextStyle(color: color.primaryColor, fontSize: 20, fontWeight: FontWeight.bold)),
+            TextSpan(text: text,style: TextStyle(color: color.darkGrey, fontSize: 16, )),
+        ],
+        ),
+        ),
+      ),
+    );
+  }
+
+  // TextSpan title(String text){
+  //   return TextSpan(text: text,style: TextStyle(color: color.primaryColor));
+  // }
+  // TextSpan information(String text){
+  //   return TextSpan(text: text,style: TextStyle(color: color.darkGrey));
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -361,7 +344,7 @@ class LastOrderDetails extends StatelessWidget {
                     child: Directionality(
                       textDirection: TextDirection.rtl,
                       child: Text(
-                        title,
+                        _order.orderType,
                         style: TextStyle(color: Colors.white, fontSize: 24),
                       ),
                     ),
@@ -371,11 +354,75 @@ class LastOrderDetails extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10),
+            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
             child: Column(
-              children: [],
+              children: [
+                data(title: "تاريخ الطلب: ", text:  "0000/00/00"),
+                data(title: "وقت الطلب: ", text: "00:00"),
+                data(title: "حالة الطلب: ", text: "2002/02/02"),
+                Visibility(
+                  visible: _order.studentNote==null || _order.studentNote.isEmpty || _order.studentNote==""?false:true,
+                  child: data(title: "الملاحظات:  ", text: _order.studentNote),),
+                Visibility(
+                  visible: _order.answerDate==null?false:true,
+                  child: Column(
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.symmetric(vertical: 20),
+                          child: Container(
+                            width: MediaQuery.of(context).size.width*0.6,
+                            child: Divider(
+                              color: color.darkGrey,
+                              height: 4,
+                              thickness: 1,
+                            ),
+                          ),
+                        ),
+                        data(title: "تاريخ الرد: ", text:  "0000/00/00"),
+                        data(title: "وقت الرد: ", text: "00:00"),
+                        Visibility(
+                          visible: _order.note==null || _order.note.isEmpty || _order.note==""?false:true,
+                          child: data(title: "الملاحظات:  ", text: _order.note),),
+                        Visibility(
+                          visible: true,
+                          child:Padding(
+                            padding: EdgeInsets.only(top: 10),
+                            child: InkWell(
+                              child: Icon(FontAwesomeIcons.filePdf, color: color.primaryColor, size: 40),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: 20),
+                  child: InkWell(
+                    child: Container(
+                      width: double.infinity,
+                      // height: 30,
+                      margin: EdgeInsets.only(top: 20, bottom: 5),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5),
+                        color: color.primaryColor,
+                      ),
+                      child: Padding(
+                          padding: EdgeInsets.symmetric(vertical: 5),
+                          child: Center(
+                              child: Text(
+                                "رجوع",
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 20),
+                              ))),
+                    ),
+                    onTap: ()async{
+                      Navigator.pop(context);
+                    },
+                  ),
+                ),
+              ],
             ),
-          )
+          ),
         ],
       ),
     );
