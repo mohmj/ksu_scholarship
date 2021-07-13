@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:ksu_scholarship/problem_domain/models/Account.dart';
+import 'package:ksu_scholarship/problem_domain/models/food_supply_order.dart';
 import 'package:ksu_scholarship/problem_domain/models/housing_order.dart';
 
 /// Auth function
@@ -33,4 +34,13 @@ void uploadHousingOrder(HousingOrder ho)async {
       ho.toMap());
   ho.documentRef = documentReference.id;
   await documentReference.set(ho.toMap(), SetOptions(merge: true));
+}
+
+void uploadFoodSupplyOrder(FoodSupplyOrder fs)async {
+  CollectionReference collectionReference = FirebaseFirestore.instance
+      .collection("orders");
+  DocumentReference documentReference = await collectionReference.add(
+      fs.toMap());
+  fs.documentRef = documentReference.id;
+  await documentReference.set(fs.toMap(), SetOptions(merge: true));
 }

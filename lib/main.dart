@@ -3,7 +3,10 @@ import 'package:ksu_scholarship/screens/auth_screen.dart';
 import 'package:ksu_scholarship/screens/home_screen.dart';
 import 'package:ksu_scholarship/screens/mother_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:ksu_scholarship/screens/orders/food_supply_order_screen.dart';
 import 'package:ksu_scholarship/screens/orders/housing_order_screen.dart';
+import 'package:ksu_scholarship/screens/orders/visa_order_screen.dart';
+import 'package:ksu_scholarship/screens/splash_screen.dart';
 
 Future<void> main()async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -30,12 +33,15 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: MotherScreen(),
-      initialRoute: MotherScreen.id,
+      initialRoute: SplashScreen.id,
       routes: {
         MotherScreen.id:(context)=>MotherScreen(),
         HomeScreen.id:(context)=>HomeScreen(),
         AuthScreen.id:(context)=>AuthScreen(),
         HousingOrderScreen.id:(context)=>HousingOrderScreen(),
+        FoodSupplyOrderScreen.id:(context)=>FoodSupplyOrderScreen(),
+        VisaOrderScreen.id:(context)=>VisaOrderScreen(),
+        SplashScreen.id:(context)=>SplashScreen(),
       },
     );
   }

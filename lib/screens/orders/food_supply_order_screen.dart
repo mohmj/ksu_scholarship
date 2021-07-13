@@ -1,24 +1,25 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:ksu_scholarship/constant/colors.dart' as color;
-import 'package:ksu_scholarship/problem_domain/models/housing_order.dart';
+import 'package:ksu_scholarship/constant/order_types.dart';
 import 'package:ksu_scholarship/problem_domain/Algorithm.dart';
-import 'package:ksu_scholarship/constant/order_type_enum.dart';
+import 'package:ksu_scholarship/problem_domain/models/food_supply_order.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+class FoodSupplyOrderScreen extends StatefulWidget {
+  static const String id="food_supply_order_screen";
 
-class HousingOrderScreen extends StatefulWidget {
-
-  static const String id="housing_order_screen";
 
   @override
-  _HousingOrderScreenState createState() => _HousingOrderScreenState();
+  _FoodSupplyOrderScreenState createState() => _FoodSupplyOrderScreenState();
 }
 
-class _HousingOrderScreenState extends State<HousingOrderScreen> {
+class _FoodSupplyOrderScreenState extends State<FoodSupplyOrderScreen> {
   @override
+
   List<String> housingItemList=['مستجد لم يصدر له الرقم الجامعي','منتظم','متخرج ولديه قبول لمرحلة أعلى','مؤجل هذا الفصل ويواصل الفصل القادم','مفصول أكاديميا ولديه موافقة على إكمال البرنامج','متخرج خلال الفصل الدراسي الحالي'];
   String housingchoose;
   TextEditingController noteController=TextEditingController();
+
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
@@ -39,7 +40,7 @@ class _HousingOrderScreenState extends State<HousingOrderScreen> {
                     child: Directionality(
                       textDirection: TextDirection.rtl,
                       child: Text(
-                        "إفادة لإدارة إسكان الطلاب",
+                        OrderType().foodSupply,
                         style: TextStyle(color: Colors.white, fontSize: 24,),
                       ),
                     ),
@@ -150,8 +151,8 @@ class _HousingOrderScreenState extends State<HousingOrderScreen> {
                         ),
                       ),
                       onTap: (){
-                        HousingOrder ho=HousingOrder("", FirebaseAuth.instance.currentUser.uid, "44000000","student name", "sudan",Timestamp.now(),"proceed",null,noteController.text,null ,null,housingchoose);
-                        uploadHousingOrder(ho);
+                        FoodSupplyOrder fs=FoodSupplyOrder("", FirebaseAuth.instance.currentUser.uid, "44000000","student name", "sudan",Timestamp.now(),"proceed",null,noteController.text,null ,null,housingchoose);
+                        uploadFoodSupplyOrder(fs);
                         Navigator.pop(context);
                       },
                     ),

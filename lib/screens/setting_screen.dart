@@ -200,7 +200,7 @@ class _SettingScreenState extends State<SettingScreen> {
                       "بيانات الأسرة",
                       children: [
                         SettingDataCard("هل الأسرة بالسعودية", "نعم",),
-                        SettingDataCard("عدد أفراد الأسرة", "4",),
+                        SettingDataCard("عدد أفراد الأسرة", "4", visibility: false,),
                       ],
                     ),
                     DepContainer(
@@ -211,13 +211,13 @@ class _SettingScreenState extends State<SettingScreen> {
                         SettingDataCard("رقم التواصل بالبلد الأهم", "4",),
                       ],
                     ),
-
                   ],
                 ),
               ),
             ),
           ],
-        ));
+        ),
+    );
   }
 }
 

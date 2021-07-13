@@ -757,36 +757,8 @@ class _AuthScreenState extends State<AuthScreen> {
                                 ),
                               ),
                             ),
-                            Padding(
-                              padding: EdgeInsets.only(bottom: 10),
-                              child: Directionality(
-                                textDirection: TextDirection.rtl,
-                                child: TextField(
-                                  keyboardType: TextInputType.text,
-                                  controller: departmentController,
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                  ),
-                                  decoration: InputDecoration(
-                                    labelText: "القسم",
-                                    enabledBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(5),
-                                      borderSide: BorderSide(
-                                        color: Colors.grey[700],
-                                        width: 2,
-                                      ),
-                                    ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(5),
-                                      borderSide: BorderSide(
-                                        color: color.primaryColor,
-                                        width: 2,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
+
+                            
                             Padding(
                               padding: EdgeInsets.only(bottom: 10),
                               child: Directionality(
