@@ -5,6 +5,12 @@ import 'package:ksu_scholarship/problem_domain/models/Account.dart';
 import 'package:ksu_scholarship/problem_domain/models/food_supply_order.dart';
 import 'package:ksu_scholarship/problem_domain/models/housing_order.dart';
 
+/// Device
+// Check the version of app
+Future retrieveVersion()async{
+  return await FirebaseFirestore.instance.collection('AppData').doc('versions').get();
+}
+
 /// Auth function
 
 // upload user data
@@ -15,8 +21,13 @@ void uploadUser(Account account)async{
 /// User data
 // Get user information
 Future retrieveUserData()async{
-  QuerySnapshot _orders=await FirebaseFirestore.instance.collection("users").where("uid",isEqualTo: FirebaseAuth.instance.currentUser.uid).get();
-  return _orders.docs;
+  QuerySnapshot _query=await FirebaseFirestore.instance.collection('users').where('uid',isEqualTo: FirebaseAuth.instance.currentUser.uid).get();
+  return _query.docs;
+}
+
+retrieveUserDataDoc()async{
+  DocumentSnapshot _doc=await FirebaseFirestore.instance.collection("users").doc(FirebaseAuth.instance.currentUser.uid).get();
+  return _doc;
 }
 
 

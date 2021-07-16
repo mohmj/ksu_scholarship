@@ -1,9 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:keyboard_visibility/keyboard_visibility.dart';
 import 'package:ksu_scholarship/constant/colors.dart' as color;
 import 'package:ksu_scholarship/constant/Widgets.dart' as widgets;
-
+import 'package:ksu_scholarship/problem_domain/Algorithm.dart';
+import 'package:ksu_scholarship/problem_domain/models/Account.dart';
 class SettingScreen extends StatefulWidget {
   static const String id = "setting_screen";
 
@@ -12,7 +14,20 @@ class SettingScreen extends StatefulWidget {
 }
 
 class _SettingScreenState extends State<SettingScreen> {
+  // Account account=Account.first();
   @override
+  void initState() {
+    // getUserData();
+    super.initState();
+  }
+
+/*
+  getUserData()async{
+    DocumentSnapshot _userData=retrieveUserDataDoc();
+    account=Account.fromMap(_userData.data());
+  }
+*/
+
   Widget build(BuildContext context) {
     double bottomSheetHeight = 250;
 
@@ -155,21 +170,21 @@ class _SettingScreenState extends State<SettingScreen> {
                       children: [
                         SettingDataCard(
                           "الاسم",
-                          "محمد علي خالد",
+                          "account.nameAr",
                         ),
                         SettingDataCard(
                           "الاسم باللغة الانجليزية",
-                          "محمد علي خالد",
+                          "account.nameEn",
                         ),
-                        SettingDataCard("الجنسية", "صومالي",),
-                        SettingDataCard("البلد", "صومالي",),
+                        SettingDataCard("الجنسية", "account.nationality",),
+                        SettingDataCard("البلد","account.country",),
                         SettingDataCard("تاريخ الميلاد", "28",),
                       ],
                     ),
                     DepContainer(
                       "بيانات الهوية",
                       children: [
-                        SettingDataCard("رقم الهوية", "16",),
+                        SettingDataCard("رقم الهوية", "account.iqamaNumber",),
                         SettingDataCard("تاريخ انتهاء الهوية", "4",),
                         // SettingDataCard("رقم الجواز", "16",),
                         // SettingDataCard("تاريخ انتهاء الجواز", "2",),
@@ -183,7 +198,7 @@ class _SettingScreenState extends State<SettingScreen> {
                         SettingDataCard("الكلية", "علوم العمارة والتخطيط",),
                         SettingDataCard("التخصص", "تخطيط ميداني",),
                         SettingDataCard("المستوى", "السابع",),
-                        SettingDataCard("المعدل", "4.62",),
+                        SettingDataCard("المعدل", "account.GPA.toString()",),
                       ],
                     ),
                     DepContainer(

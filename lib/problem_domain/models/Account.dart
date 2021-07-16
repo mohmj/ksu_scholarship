@@ -31,6 +31,38 @@ class Account {
   String addressInCountry;
   String phoneInCountry;
 
+  Account.first(){
+    uid="";
+    isSuperAdmin=false;
+    isAdmin=false;
+    universityID="";
+    nameAr="";
+    nameEn="";
+    email="";
+    gender=false;
+    nationality="";
+    country="";
+    dateOfBirth=Timestamp.now();
+    iqamaNumber="";
+    iqamaExpireDate=Timestamp.now();
+    phoneNumber="";
+    GPA=0;
+    degree="";
+    college="";
+    department="";
+    level=0;
+    academicStatus="";
+    housingType="خيري";
+    houseBuilding=0;
+    houseFloor=0;
+    houseSuite=0;
+    houseRoom=0;
+    familyInSaudiArabia=false;
+    numberOfFamily=0;
+    academicStatus="";
+    phoneInCountry="";
+  }
+
   Account(
       String uid,bool isSuperAdmin,bool isAdmin,String universityId,String nameAr,String nameEn,String email,bool gender,String nationality,String country,Timestamp dateOfBirth,String iqamaNumber,Timestamp iqamaExpDate,String phoneNumber,double GPA,String degree,String college,String department,int level,String academicStatus,String housingType,int houseBuilding, int houseFloor, int houseSuite, int houseRoom,bool familyInSaudiArabia,int numberOfFamily,String addressInCountry,String phoneInCountry){
     this.uid=uid;

@@ -109,7 +109,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     child: Directionality(
                                         textDirection: TextDirection.rtl,
                                         child: AutoSizeText(
-                                          "م {} د 4 ج 3 غ 5",
+                                          // " ${_userDataMap.houseRoom} "+"غ"+" ${_userDataMap.houseSuite} "+"ج"+" ${_userDataMap.houseFloor} "+,
+                                          "م"+" ${_userDataMap.houseBuilding} "+"د"+" ${_userDataMap.houseFloor} "+"ج"+" ${_userDataMap.houseSuite} "+"غ"+" ${_userDataMap.houseRoom} ",
                                           minFontSize: 24,
                                           maxLines: 2,
                                           style: TextStyle(
