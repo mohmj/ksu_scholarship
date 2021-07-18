@@ -55,3 +55,10 @@ void uploadFoodSupplyOrder(FoodSupplyOrder fs)async {
   fs.documentRef = documentReference.id;
   await documentReference.set(fs.toMap(), SetOptions(merge: true));
 }
+
+/// Setting methods
+
+updateUserData(String label, dynamic data)async{
+  await FirebaseFirestore.instance.collection("users").doc(FirebaseAuth.instance.currentUser.uid).update(
+      {label:data});
+}
