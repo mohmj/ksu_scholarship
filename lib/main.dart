@@ -4,6 +4,7 @@ import 'package:ksu_scholarship/screens/home_screen.dart';
 import 'package:ksu_scholarship/screens/mother_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:ksu_scholarship/screens/orders/food_supply_order_screen.dart';
+import 'package:ksu_scholarship/screens/orders/help_order_screen.dart';
 import 'package:ksu_scholarship/screens/orders/housing_order_screen.dart';
 import 'package:ksu_scholarship/screens/orders/visa_order_screen.dart';
 import 'package:ksu_scholarship/screens/splash_screen.dart';
@@ -41,6 +42,7 @@ class MyApp extends StatelessWidget {
         HousingOrderScreen.id:(context)=>HousingOrderScreen(),
         FoodSupplyOrderScreen.id:(context)=>FoodSupplyOrderScreen(),
         VisaOrderScreen.id:(context)=>VisaOrderScreen(),
+        HelpOrderScreen.id:(context)=>HelpOrderScreen(),
         SplashScreen.id:(context)=>SplashScreen(),
       },
     );

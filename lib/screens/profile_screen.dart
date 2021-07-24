@@ -56,7 +56,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             padding: EdgeInsets.symmetric(horizontal: 15, vertical: 20),
             child: Container(
                 width: double.infinity,
-                height: 100,
+                height: 125,
                 child: FutureBuilder(
                   future: retrieveUserData(),
                   builder: (context,snapshot){
@@ -73,7 +73,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           itemBuilder: (_,index){
                             DocumentSnapshot _userData=snapshot.data[index];
                             Account _userDataMap=Account.fromMap(_userData.data());
-
                             return Column(
                               children: [
                                 Container(

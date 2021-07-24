@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ksu_scholarship/constant/colors.dart' as color;
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:ksu_scholarship/screens/orders/help_order_screen.dart';
 import 'package:ksu_scholarship/screens/orders/housing_order_screen.dart';
 import 'package:ksu_scholarship/screens/orders/food_supply_order_screen.dart';
 import 'package:ksu_scholarship/screens/orders/visa_order_screen.dart';
@@ -17,7 +18,7 @@ class _HomeScreenState extends State<HomeScreen> {
     {"title": "طلب تأشيرة خروج وعودة", "icon": Icons.airplanemode_active, "route":VisaOrderScreen.id},
     {"title": "طلب اسكان", "icon": Icons.home, "route":HousingOrderScreen.id},
     {"title": "طلب تغذية", "icon": Icons.fastfood_rounded,"route":FoodSupplyOrderScreen.id},
-    // {"title": "طلب إعانة", "icon": Icons.volunteer_activism, "route":HousingOrderScreen.id},
+    {"title": "طلب إعانة", "icon": Icons.volunteer_activism, "route":HelpOrderScreen.id},
   ];
 
   @override
