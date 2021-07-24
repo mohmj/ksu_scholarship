@@ -53,7 +53,8 @@ class _VisaOrderScreenState extends State<VisaOrderScreen> {
           Expanded(
             child: Padding(
               padding: EdgeInsets.only(bottom: 30, left: 20, right: 20,),
-              child: Column(
+              child: ListView(
+                padding: EdgeInsets.zero,
                 children: [
                   Padding(
                     padding: EdgeInsets.only(bottom: 10, top: 30,),

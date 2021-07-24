@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:keyboard_visibility/keyboard_visibility.dart';
@@ -7,6 +8,7 @@ import 'package:ksu_scholarship/constant/Widgets.dart' as widgets;
 import 'package:ksu_scholarship/problem_domain/Algorithm.dart';
 import 'package:ksu_scholarship/problem_domain/models/Account.dart';
 import 'package:ksu_scholarship/constant/housing_types.dart';
+import 'package:ksu_scholarship/screens/auth_screen.dart';
 class SettingScreen extends StatefulWidget {
   static const String id = "setting_screen";
 
@@ -2493,15 +2495,41 @@ class _SettingScreenState extends State<SettingScreen> {
                                    },),
                                  ],
                                ),
+                               InkWell(
+                                 child: Container(
+                                   width: double.infinity,
+                                   // height: 30,
+                                   margin: EdgeInsets.only(top: 10, bottom: 5),
+                                   decoration: BoxDecoration(
+                                     borderRadius: BorderRadius.circular(5),
+                                     color: color.red,
+                                   ),
+                                   child: Padding(
+                                     padding: EdgeInsets.symmetric(vertical: 5),
+                                     child: Center(
+                                       child: Text(
+                                         "تسجيل الخروج",
+                                         style: TextStyle(
+                                             color: Colors.white, fontSize: 20),
+                                       ),
+                                     ),
+                                   ),
+                                 ),
+                                 onTap: ()async{
+                                   await FirebaseAuth.instance.signOut();
+                                   Navigator.pushReplacementNamed(context, AuthScreen.id);
+                                 },
+                               ),
                              ],
                            );
                           }
                       );
                     }
                   },
-                )
+                ),
               ),
             ),
+
           ],
         ),
     );

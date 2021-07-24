@@ -54,7 +54,6 @@ class _AuthScreenState extends State<AuthScreen> {
   TextEditingController confirmPasswordController=TextEditingController();
 
   // End of controllers.
-  TextEditingController _IqamaExpDateController=TextEditingController();
 
   // Login controllers
   TextEditingController loginEmailController=TextEditingController();
@@ -135,6 +134,8 @@ class _AuthScreenState extends State<AuthScreen> {
                               textDirection: TextDirection.rtl,
                               child: TextField(
                                 keyboardType: TextInputType.emailAddress,
+                                textAlign: TextAlign.left,
+                                textDirection: TextDirection.ltr,
                                 controller: loginEmailController,
                                 style: TextStyle(
                                   fontSize: 20,
@@ -166,6 +167,8 @@ class _AuthScreenState extends State<AuthScreen> {
                               child: TextField(
                                 keyboardType: TextInputType.visiblePassword,
                                 controller: loginPasswordController,
+                                textAlign: TextAlign.left,
+                                textDirection: TextDirection.ltr,
                                 obscureText: true,
                                 style: TextStyle(
                                   fontSize: 20,
@@ -282,6 +285,8 @@ class _AuthScreenState extends State<AuthScreen> {
                                 child: TextField(
                                   keyboardType: TextInputType.text,
                                   controller: nameEnController,
+                                  textAlign: TextAlign.left,
+                                  textDirection: TextDirection.ltr,
                                   style: TextStyle(
                                     fontSize: 20,
                                   ),
@@ -511,18 +516,18 @@ class _AuthScreenState extends State<AuthScreen> {
                                 textDirection: TextDirection.rtl,
                                 child: TextField(
                                   keyboardType: TextInputType.datetime,
-                                  controller: _IqamaExpDateController,
+                                  controller: iqamaExpDateController,
                                   onTap:(){
                                     showDatePicker(
                                       context: context,
                                       initialDate: DateTime.now(),
                                       firstDate: DateTime(DateTime.now().year),
-                                      lastDate: DateTime(DateTime.now().year+2),
+                                      lastDate: DateTime(DateTime.now().year+2,DateTime.now().month,DateTime.now().day ),
                                     ).then((pickedDate) {
                                       iqamaExpDate=Timestamp.fromDate(pickedDate);
                                       print(iqamaExpDate.toDate().month);
                                       setState(() {
-                                        _IqamaExpDateController.text="${iqamaExpDate.toDate().year}/${iqamaExpDate.toDate().month}/${iqamaExpDate.toDate().day}";
+                                        iqamaExpDateController.text="${iqamaExpDate.toDate().year}/${iqamaExpDate.toDate().month}/${iqamaExpDate.toDate().day}";
                                       });
                                     });
                                   },

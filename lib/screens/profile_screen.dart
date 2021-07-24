@@ -174,23 +174,23 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     if(snapshot.connectionState==ConnectionState.waiting){
                       return Container(
                         child: Center(
-                          child: Text("جاري تجميل البيانات"),
+                          child: Text("جاري تحميل البيانات"),
                         ),
                       );
                     }else if(!snapshot.hasData){
                       return Container(
                           child: Center(
-                          child: Text("جاري تجميل البيانات"),
+                          child: Text("لا توجد طلبات سابقة"),
                     ),
                       );
                     }else{
                       return ListView.builder(
                           padding: EdgeInsets.zero,
                           itemCount: snapshot.data.length,
-                          itemBuilder: (_,index){
-                            DocumentSnapshot _orderData=snapshot.data[index];
-                           return LastOrderCard(Order.fromMap(_orderData.data()));
-                          }
+                        itemBuilder: (_,index){
+                          DocumentSnapshot _orderData=snapshot.data[index];
+                            return LastOrderCard(Order.fromMap(_orderData.data()));
+                        }
                       );
                     }
                   },

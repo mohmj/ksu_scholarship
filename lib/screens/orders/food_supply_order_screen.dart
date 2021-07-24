@@ -54,7 +54,8 @@ class _FoodSupplyOrderScreenState extends State<FoodSupplyOrderScreen> {
               padding: EdgeInsets.only(bottom: 30, left: 20, right: 20,),
               child: Directionality(
                 textDirection: TextDirection.rtl,
-                child: Column(
+                child: ListView(
+                  padding: EdgeInsets.zero,
                   children: [
                     Padding(
                       padding: EdgeInsets.only(top: 30,bottom: 20),
