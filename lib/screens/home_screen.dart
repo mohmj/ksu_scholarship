@@ -1,7 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:ksu_scholarship/constant/colors.dart' as color;
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:ksu_scholarship/screens/auth_screen.dart';
 import 'package:ksu_scholarship/screens/orders/help_order_screen.dart';
 import 'package:ksu_scholarship/screens/orders/housing_order_screen.dart';
 import 'package:ksu_scholarship/screens/orders/food_supply_order_screen.dart';
@@ -65,6 +67,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
             ),
           ),
+          // IconButton(onPressed:()async{
+          //   await FirebaseAuth.instance.signOut();
+          //   Navigator.pushReplacementNamed(context, AuthScreen.id);
+          // } , icon: Icon(Icons.logout,color: color.red))
         ],
       ),
     );

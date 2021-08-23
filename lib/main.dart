@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:ksu_scholarship/screens/admin/home_screen.dart';
+import 'package:ksu_scholarship/screens/admin/mother_screen.dart';
+import 'package:ksu_scholarship/screens/admin/setting_screen.dart';
 import 'package:ksu_scholarship/screens/auth_screen.dart';
 import 'package:ksu_scholarship/screens/home_screen.dart';
 import 'package:ksu_scholarship/screens/mother_screen.dart';
@@ -34,7 +37,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: MotherScreen(),
-      initialRoute: SplashScreen.id,
+      initialRoute: AdminMotherScreen .id,
       routes: {
         MotherScreen.id:(context)=>MotherScreen(),
         HomeScreen.id:(context)=>HomeScreen(),
@@ -44,6 +47,9 @@ class MyApp extends StatelessWidget {
         VisaOrderScreen.id:(context)=>VisaOrderScreen(),
         HelpOrderScreen.id:(context)=>HelpOrderScreen(),
         SplashScreen.id:(context)=>SplashScreen(),
+        AdminHomeScreen.id:(context)=>AdminHomeScreen(),
+        AdminSettingScreen.id:(context)=>AdminSettingScreen(),
+        AdminMotherScreen.id:(context)=>AdminMotherScreen(),
       },
     );
   }

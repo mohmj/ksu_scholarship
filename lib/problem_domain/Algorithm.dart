@@ -8,7 +8,19 @@ import 'package:ksu_scholarship/problem_domain/models/housing_order.dart';
 /// Device
 // Check the version of app
 Future retrieveVersion()async{
-  return await FirebaseFirestore.instance.collection('AppData').doc('versions').get();
+  var a= await FirebaseFirestore.instance.collection('AppData').doc('versions').get();
+  print(a['android']);
+}
+
+Future<Account> retrieveUserNew()async{
+  var b=await FirebaseFirestore.instance.collection("users").doc(FirebaseAuth.instance.currentUser.uid).get();
+  Account a=Account.fromMap(b as Map<String, dynamic>);
+  return  a;
+}
+
+Future<Account> getUserInformation(String uid)async{
+  DocumentSnapshot _userInfo=await FirebaseFirestore.instance.collection('users').doc(uid).get();
+  return Account.fromMap(_userInfo.data());
 }
 
 /// Auth function
@@ -30,11 +42,26 @@ retrieveUserDataDoc()async{
   return _doc;
 }
 
+Stream<Account>retrieveUserDataStream(){
+  return FirebaseFirestore.instance
+      .collection("users")
+      .doc(FirebaseAuth.instance.currentUser.uid)
+      .snapshots()
+      .map((DocumentSnapshot documentSnapshot) => Account.fromMap(
+    documentSnapshot.data(),
+  ));
+}
+
 
 /// orders
-// get orders
+// get orders for user
 Future retrieveOrders()async{
   QuerySnapshot _orders=await FirebaseFirestore.instance.collection("orders").where("uid",isEqualTo: FirebaseAuth.instance.currentUser.uid).orderBy("orderDate", descending: true).get();
+  return _orders.docs;
+}
+
+Future retrieveOrdersAdmins() async{
+  QuerySnapshot _orders=await FirebaseFirestore.instance.collection("orders").orderBy("orderDate", descending: true).get();
   return _orders.docs;
 }
 

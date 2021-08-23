@@ -39,7 +39,7 @@ class HousingOrder{
     id=data['id'];
     name=data['name'];
     nationality=data['nationality'];
-    orderDate=data['orderData'];
+    orderDate=data['orderDate'];
     orderStatus=data['orderStatus'];
     answerDate=data['answerDate'];
     studentNote=data['studentNote'];

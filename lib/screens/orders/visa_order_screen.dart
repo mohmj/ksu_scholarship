@@ -41,7 +41,7 @@ class _VisaOrderScreenState extends State<VisaOrderScreen> {
                     child: Directionality(
                       textDirection: TextDirection.rtl,
                       child: Text(
-                        OrderType().foodSupply,
+                        OrderType().visa,
                         style: TextStyle(color: Colors.white, fontSize: 24,),
                       ),
                     ),

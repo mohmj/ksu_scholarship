@@ -11,6 +11,7 @@ import 'package:ksu_scholarship/problem_domain/models/housing_order.dart';
 import 'package:ksu_scholarship/problem_domain/models/order.dart';
 import 'package:ksu_scholarship/problem_domain/Algorithm.dart';
 import 'package:ksu_scholarship/constant/order_status.dart';
+import 'package:intl/intl.dart' as intl;
 
 class ProfileScreen extends StatefulWidget {
   static const String id = "profile_screen";
@@ -300,6 +301,11 @@ class LastOrderDetails extends StatelessWidget {
 
   Order _order;
 
+  String formatedDate(Timestamp timestamp){
+    var dateFromTimeStamp=DateTime.fromMillisecondsSinceEpoch(timestamp.seconds*1000);
+    return intl.DateFormat('yyyy/MM/dd').format(dateFromTimeStamp);
+  }
+
   Container data({String title, String text}){
     return Container(
       width: double.infinity,
@@ -357,9 +363,12 @@ class LastOrderDetails extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
             child: Column(
               children: [
-                data(title: "تاريخ الطلب: ", text:  "0000/00/00"),
-                data(title: "وقت الطلب: ", text: "00:00"),
-                data(title: "حالة الطلب: ", text: "2002/02/02"),
+                // data(title: "تاريخ الطلب: ", text:  "a"),
+                data(title: "تاريخ الطلب: ", text:  "${_order.orderDate.toDate().year}/${_order.orderDate.toDate().month}/${_order.orderDate.toDate().day}"),
+                // data(title: "وقت الطلب: ", text: "00:00"),
+                data(title: "وقت الطلب: ", text: "${_order.orderDate.toDate().hour}:${_order.orderDate.toDate().minute}"),
+                data(title: "حالة الطلب: ", text: "${_order.orderStatus}"),
+                // data(title: "حالة الطلب: ", text: "2002/02/02"),
                 Visibility(
                   visible: _order.studentNote==null || _order.studentNote.isEmpty || _order.studentNote==""?false:true,
                   child: data(title: "الملاحظات:  ", text: _order.studentNote),),

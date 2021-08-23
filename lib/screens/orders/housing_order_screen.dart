@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:ksu_scholarship/constant/colors.dart' as color;
+import 'package:ksu_scholarship/problem_domain/models/Account.dart';
 import 'package:ksu_scholarship/problem_domain/models/housing_order.dart';
 import 'package:ksu_scholarship/problem_domain/Algorithm.dart';
 import 'package:ksu_scholarship/constant/order_type_enum.dart';
@@ -150,8 +151,9 @@ class _HousingOrderScreenState extends State<HousingOrderScreen> {
                           ),
                         ),
                       ),
-                      onTap: (){
-                        HousingOrder ho=HousingOrder("", FirebaseAuth.instance.currentUser.uid, "44000000","student name", "sudan",Timestamp.now(),"proceed",null,noteController.text,null ,null,housingchoose);
+                      onTap: ()async{
+                        Account user=await getUserInformation(FirebaseAuth.instance.currentUser.uid);
+                        HousingOrder ho=HousingOrder("", user.uid, user.universityID,user.nameAr, user.country,Timestamp.now(),"proceed",null,noteController.text,null ,null,housingchoose);
                         uploadHousingOrder(ho);
                         Navigator.pop(context);
                       },

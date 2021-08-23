@@ -1,11 +1,15 @@
+import 'dart:typed_data';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ksu_scholarship/constant/colors.dart' as color;
 import 'package:ksu_scholarship/problem_domain/models/housing_order.dart';
 import 'package:ksu_scholarship/problem_domain/Algorithm.dart';
 import 'package:ksu_scholarship/constant/order_type_enum.dart';
+import 'package:file_picker/file_picker.dart';
 
 
 class HelpOrderScreen extends StatefulWidget {
@@ -144,7 +148,20 @@ class _HelpOrderScreenState extends State<HelpOrderScreen> {
                           ),
                         ),
                         InkWell(
-                          child: Icon(FontAwesomeIcons.filePdf, size: 40,),
+                          child: Icon(FontAwesomeIcons.filePdf, size: 40,
+                          ),
+                          onTap: ()async{
+                            print("start upload file");
+                            FilePickerResult result = await FilePicker.platform.pickFiles();
+
+                            if (result != null) {
+                              Uint8List fileBytes = result.files.first.bytes;
+                              String fileName = result.files.first.name;
+
+                              // Upload file
+                              await FirebaseStorage.instance.ref('uploads/$fileName').putData(fileBytes);
+                            }
+                          },
                         ),
                       ],
                     ),

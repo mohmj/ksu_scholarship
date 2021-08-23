@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:ksu_scholarship/constant/colors.dart' as color;
 import 'package:ksu_scholarship/problem_domain/Algorithm.dart';
+import 'package:ksu_scholarship/problem_domain/models/Account.dart';
 import 'package:ksu_scholarship/screens/auth_screen.dart';
 import 'package:ksu_scholarship/screens/mother_screen.dart';
 import 'package:ksu_scholarship/constant/version.dart';
@@ -15,11 +16,11 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
-    Future.delayed(Duration(seconds: 3));
-
-      checkUser();
-
-    super.initState();
+      if(getUser()==null){
+        Navigator.pushNamed(context, AuthScreen.id);
+      }
+      Navigator.pushNamed(context, MotherScreen.id);
+      super.initState();
   }
 
 /*  getVersion()async{
@@ -31,12 +32,17 @@ class _SplashScreenState extends State<SplashScreen> {
     return false;
   }*/
 
-  Future<void> checkUser()async{
-    if( await FirebaseAuth.instance.currentUser != null ){
-      Navigator.pushNamed(context, MotherScreen.id);
-    }else{
-      Navigator.pushNamed(context, AuthScreen.id);
-    }
+  // Future<void> checkUser()async{
+  //   if( await FirebaseAuth.instance.currentUser != null ){
+  //     // Stream<Account> a=retrieveUserDataStream();
+  //     Navigator.pushNamed(context, MotherScreen.id);
+  //   }else{
+  //     Navigator.pushNamed(context, AuthScreen.id);
+  //   }
+  // }
+  //
+  Future getUser()async{
+    return await FirebaseAuth.instance.currentUser;
   }
 
   @override
