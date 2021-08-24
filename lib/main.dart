@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: MotherScreen(),
-      initialRoute: AdminMotherScreen .id,
+      initialRoute: AuthScreen .id,
       routes: {
         MotherScreen.id:(context)=>MotherScreen(),
         HomeScreen.id:(context)=>HomeScreen(),
